@@ -1,6 +1,9 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 var menuChoices = ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product'];
+var chosenID;
+var addedQuantity;
+
 
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -91,4 +94,62 @@ connection.connect(function (error, response) {
 		})
 });
 
+}
+
+function addInventory () {
+	inquirer.prompt([
+		{
+			type: 'input',
+			message: 'Enter the ID of the item you would like add inventory: ',
+			name: 'id',
+			validate: function(value){
+				if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 11) {
+					return true;
+				} else {
+				console.log("");
+				console.log("Enter a valid ID. ");
+				return false;
+			}
+			}
+		}
+		]).then(function(choice) {
+			chosenID = choice.id;
+			console.log("");
+			console.log('Request made. Inventory added.');
+			console.log("");
+			quantityToAdd();
+		
+		})
+}
+
+function quantityToAdd() {
+	inquirer.prompt([
+		{
+			type: 'input',
+			message: 'Enter quantity to add: ',
+			name: 'quantity',
+			validate: function(value){
+			if (isNaN(value) === false && parseInt(value) > 0) {
+					return true;
+				} else {
+				console.log('Please enter a valid number.');
+				return false;
+			}
+		}
+		}
+		]).then(function(quantity) {
+			addedQuantity = quantity.quantity; 
+			console.log(requestedQuantity);
+			connection.query('UPDATE `bieBay` SET `stock_quantity` +' + addedQuantity + ' WHERE `item_id` =' + chosenID, function (err, respone){
+		if (err) {
+			console.log(err);
+			console.log('');
+			console.log('Something went wrong. ');
+		}
+		else {
+			console.log('');
+			console.log('Inventory updated. ');
+			
+		}
+	})
 }
