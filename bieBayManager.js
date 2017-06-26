@@ -1,5 +1,7 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+
+//
 var menuChoices = ['View Products for Sale', 'View Low Inventory', 'Add to Inventory', 'Add New Product'];
 var chosenID;
 var addedQuantity;
@@ -112,7 +114,7 @@ function addInventory() {
         message: 'Enter the ID of the item you would like add inventory: ',
         name: 'id',
         validate: function(value) {
-            if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 11) {
+            if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 13) {
                 return true;
             } else {
                 console.log('');

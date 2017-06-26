@@ -1,10 +1,15 @@
+
+
 var mysql = require('mysql');
 var inquirer = require('inquirer');
+
+// Global variables that will change based on the customer input
 var requestedItem;
 var requestedQuantity;
 var itemArray = [];
 var cost;
 
+// Constructor variable for item requested in store
 function item(id, name, price, quantity, autograph){
 	this.id = id;
 	this.name = name;
@@ -13,6 +18,7 @@ function item(id, name, price, quantity, autograph){
 	this.autograph = autograph;
 }
 
+// Creates variable connection to mysql
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
@@ -21,6 +27,8 @@ var connection = mysql.createConnection({
 });
 
 connectin();
+
+// Connects to mysql
 function connectin () {
 connection.connect(function (error, response) {
 	if (error) {
@@ -33,6 +41,7 @@ connection.connect(function (error, response) {
 };
 
 
+// Initial menu to Biebay store. Displays items for sale
 function introItems () {
 
 		//console.log("Connected to MySQL server, as ID = " + connection.threadId);
@@ -55,6 +64,7 @@ function introItems () {
 
 };
 
+// Accepts customer order. Checks for a valid ID input. If valid, fires next function to ask for quantity.
 function customerOrder () {
 	inquirer.prompt([
 		{
@@ -81,6 +91,7 @@ function customerOrder () {
 		
 }
 
+// Asks for desired quantity. Quantity must be a valid number. If it is, item is stored in a new variable. If item is sold out, customer is informed. If customer selects a quantity too large, then request is rejected and new quantity requested.
 function orderQuantity () {
 		inquirer.prompt([
 		{
@@ -148,6 +159,7 @@ function orderQuantity () {
 		})
 }
 
+// Updates values of item in database. Confirms transaction for the customer.
 function processOrder () {
 	itemArray[0].quantity -= requestedQuantity;
 	cost = requestedQuantity * itemArray[0].price;
@@ -172,6 +184,7 @@ function processOrder () {
 
 }
 
+// prompt to place another order.
 function nextOrder () {
 	inquirer.prompt([
 
