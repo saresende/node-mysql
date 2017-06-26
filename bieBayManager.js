@@ -115,8 +115,11 @@ function addInventory() {
             if (isNaN(value) === false && parseInt(value) > 0 && parseInt(value) <= 11) {
                 return true;
             } else {
-                console.log("");
+                console.log('');
+				console.log('');
                 console.log("Enter a valid ID. ");
+                console.log('');
+				console.log('');
                 return false;
             }
         }
@@ -140,7 +143,11 @@ function quantityToAdd() {
                 if (isNaN(value) === false && parseInt(value) > 0) {
                     return true;
                 } else {
+                	console.log('');
+					console.log('');
                     console.log('Please enter a valid number.');
+                    console.log('');
+					console.log('');
                     return false;
                 }
             }
@@ -226,7 +233,7 @@ function addNew () {
 			}
 			else {
 				console.log('');
-				console.log('ITEM SUCESSFULLY ADDED. CONGRATS. ');
+				console.log('ITEM SUCESSFULLY ADDED. ');
 				console.log('');
 				menu();
 			}

@@ -20,19 +20,28 @@ var connection = mysql.createConnection({
 	database: 'bieBay'
 });
 
-introItems();
-function introItems () {
+connectin();
+function connectin () {
 connection.connect(function (error, response) {
 	if (error) {
 		throw error;
 	}
+	else {
+		introItems();
+	}
+});
+};
+
+
+function introItems () {
+
 		//console.log("Connected to MySQL server, as ID = " + connection.threadId);
 		connection.query("SELECT * FROM `bieBay`", function(err, response) {
 			if (err) {
 				console.log(err)
 			}
 			else {
-				console.log('Hello! Welcome to Justin Bieber super fan Mega Online store. This is your one stop shop to all your Justin Bieber needs. You butter Beliebe we will have all of your needs and desires.');
+				console.log('Hello! Welcome to Justin Bieber super fan Mega Online store. This is your one stop shop to all your Justin Bieber needs. You butter Beliebe we will have all of your Justin Bieber related desires.');
 				console.log("");
 				console.log("Items available for sale: ");
 				response.forEach(function (row) {
@@ -43,7 +52,7 @@ connection.connect(function (error, response) {
 			customerOrder();
 			}
 		})
-});
+
 };
 
 function customerOrder () {
@@ -82,14 +91,18 @@ function orderQuantity () {
 			if (isNaN(value) === false && parseInt(value) > 0) {
 					return true;
 				} else {
+				console.log('');
+				console.log('');
 				console.log('Please enter a valid number.');
+				console.log('');
+				console.log('');
 				return false;
 			}
 		}
 		}
 		]).then(function(answer) {
 			requestedQuantity = answer.quantity; 
-			console.log(requestedQuantity);
+			//console.log(requestedQuantity);
 			connection.query('SELECT * FROM `bieBay` WHERE `item_id` ='+ requestedItem, function (error, response){
 				if (error){
 					console.log(error);
@@ -138,7 +151,7 @@ function orderQuantity () {
 function processOrder () {
 	itemArray[0].quantity -= requestedQuantity;
 	cost = requestedQuantity * itemArray[0].price;
-	console.log(itemArray[0].quantity);
+	//console.log(itemArray[0].quantity);
 	connection.query('UPDATE `bieBay` SET `stock_quantity` =' + itemArray[0].quantity + ' WHERE `item_id` =' + requestedItem, function (err, respone){
 		if (err) {
 			console.log(err);
