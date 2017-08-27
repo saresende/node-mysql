@@ -14,7 +14,7 @@ Manager will be able to create new inventory, edit stock, and delete items from 
 
 ### DEMO VIDEO:
 
-<a href="https://www.youtube.com/embed/lbPd23fpKEE" rel="youtube image">![Foo](https://cl.ly/2R2s061P463X)]</a>
+<a href="https://www.youtube.com/embed/lbPd23fpKEE" rel="youtube image">![video](https://cl.ly/2R2s061P463X)]</a>
 
 
 
